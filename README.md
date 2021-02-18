@@ -1,10 +1,4 @@
-# DM Friends
-
-<br><br>
-
----
-
-## ⛩ DM Friends ( 동묘앞 프렌즈 )
+# ⛩ DM Friends ( 동묘앞 프렌즈 )
 
 - [카카오 프렌즈샵](https://store.kakaofriends.com/kr/index) 사이트
 - 소개: 카카오프렌즈는 일상의 즐거움이 가득한 카카오프렌즈 캐릭터 상품들을 다양하게 만나는 공간입니다.
@@ -25,39 +19,26 @@
 - Front-end: React.js(Class), React-router, SASS
 - Back-end: Django, Python, MySQL, jwt, bcrypt
 
-## 💁‍♀️ 구현 기능
+## 💁‍♀️ 내가 구현한 기능
+
+- 제품 상세페이지
+  - Slick-Carousel을 활용한 이미지 슬라이더
+  - BottomBar를 통한 수량 변경 및 장바구니 POST fetch
+  - path parameter와 query string을 활용한 리뷰 댓글 Pagination 및 좋아요, 최신순 정렬 기능
+  - top버튼
+  - life-cycle을 이용한 로그인 안내 모달창
+  - 장바구니 추가시 setTime을 활용한 알림 애니메이션
+- 장바구니 페이지
+  - POST로 장바구니 상품 받아오기
+  - 제품 전체 삭제
 
 ## 🎥 영상
+
 [클로닝 동영상](https://youtu.be/r2SD8_ePyOI)
-
-## 💿 개인 역할
-
-> front-end
-> `임대호` 
-> `임태진` 
-> `김해인` 
-> `한채빈`
-
-> back-end
-> `우혁준` 
-> `이승연` 
-> `유하람`
 
 ## 💰 소감 및 후기
 
-- 임대호:
-
-- 임태진:
-
-- 김해인:
-
-- 한채빈:
-
-- 우혁준:
-
-- 이승연:
-
-- 유하람:
+### [회고록](https://velog.io/@ingdaeho/first-project)
 
 ## 💎 레퍼런스
 
