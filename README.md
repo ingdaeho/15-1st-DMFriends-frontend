@@ -34,7 +34,7 @@
 
 ## 🎥 영상
 
-[클로닝 동영상](https://youtu.be/r2SD8_ePyOI)
+### [클로닝 동영상](https://youtu.be/r2SD8_ePyOI)
 
 ## 💰 소감 및 후기
 
