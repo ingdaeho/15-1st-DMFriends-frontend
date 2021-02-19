@@ -9,11 +9,7 @@ class UpdateItemContainer extends Component {
   };
 
   componentDidMount() {
-<<<<<<< HEAD
-    fetch("http://192.168.0.27:8000/product/category/all?category=1&sort=-price")
-=======
     fetch("http://192.168.0.27:8000/product/category/all?category=7&sort=-price")
->>>>>>> master
       .then((res) => res.json())
       .then((res) => this.setState({ UpdateProducts: res.result }));
   }

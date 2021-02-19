@@ -1,46 +1,24 @@
 @import "../../styles/common.scss";
-<<<<<<< HEAD
-.Nav {
-  @include flexCenter;
-=======
 
 .Nav {
   @include flexCenter;
-<<<<<<< HEAD
   position: fixed;
   top: 47px;
->>>>>>> master
   background-color: white;
 
-=======
-  top: 47px;
-  background-color: white;
->>>>>>> master
   ul {
     @include flexCenter;
     width: 640px;
     height: 47px;
     border-bottom: $greyBorder;
     z-index: 0;
-<<<<<<< HEAD
-
-=======
->>>>>>> master
     li {
       @include flexCenter;
       width: 150px;
       height: 100%;
-<<<<<<< HEAD
-
       &.active {
         border-bottom: 4px solid black;
       }
-
-=======
-      &.active {
-        border-bottom: 4px solid black;
-      }
->>>>>>> master
       a {
         text-decoration: none;
         color: black;

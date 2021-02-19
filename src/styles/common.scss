@@ -1,12 +1,9 @@
 $theme-color: blue;
 $hr-gray: #e7e7e7;
 
-<<<<<<< HEAD
-=======
 $theme-color: blue;
 $hr-gray: #e7e7e7;
 
->>>>>>> master
 @mixin flex_center {
   display: flex;
   justify-content: center;
@@ -21,11 +18,6 @@ $hr-gray: #e7e7e7;
   outline: none;
 }
 
-<<<<<<< HEAD
-$border-color: rgb(227, 229, 232);
-$letter-color: rgb(51, 51, 51);
-$description-letter-color: rgb(154, 154, 158);
-=======
 * {
   box-sizing: border-box;
   font-family: “Apple SD Gothic Neo”, “helvetica neue”, Roboto, Helvetica, Arial, sans-serif;
@@ -39,7 +31,6 @@ $description-letter-color: rgb(154, 154, 158);
   justify-content: center;
 }
 
->>>>>>> master
 $font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
   sans-serif;
 $kakaoYellow: #fbdd0d;

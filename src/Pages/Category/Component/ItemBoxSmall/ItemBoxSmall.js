@@ -7,11 +7,7 @@ class ItemBoxSmall extends Component {
   render() {
     const { imgUrl, itemName, price } = this.props;
     return (
-<<<<<<< HEAD
-      <Link to="/ProductDetail" className="ItemBoxSmall">
-=======
       <Link to="/Category" className="ItemBoxSmall">
->>>>>>> master
         <img src={imgUrl} alt="product" />
         <div className="ProductText">
           <span>{itemName}</span>

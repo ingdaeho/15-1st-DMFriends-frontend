@@ -8,20 +8,6 @@
   @extend %FlexCenter;
   width: 100vw;
   height: auto;
-<<<<<<< HEAD
-  overflow-y: unset;
-  background-color: #ffffff;
-  display: block;
-  margin: 0 auto;
-  overflow-x: hidden;
-
-  .CateContainer {
-    display: block;
-    position: relative;
-    width: 1080px;
-    margin: 0 auto;
-    top: 47px;
-=======
   overflow-y: auto;
   background-color: #ffffff;
 
@@ -29,6 +15,5 @@
     position: relative;
     width: 1080px;
     height: auto;
->>>>>>> master
   }
 }

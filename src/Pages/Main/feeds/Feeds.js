@@ -2,11 +2,8 @@ import React, { Component } from "react";
 import "./Feeds.scss";
 import Slider from "react-slick";
 import "../Main.scss";
-<<<<<<< HEAD
 import { mainAPI } from "../../../config";
-=======
 
->>>>>>> master
 class Feeds extends Component {
   constructor() {
     super();
@@ -15,29 +12,14 @@ class Feeds extends Component {
   state = {
     feedImgs: [],
   };
-<<<<<<< HEAD
-=======
 
->>>>>>> master
   modalOn = () => {
     this.share.current.style.display = "block";
   };
+
   closeModal = () => {
     this.share.current.style.display = "none";
   };
-<<<<<<< HEAD
-  changeHeart = () => {
-    const { feed } = this.props;
-    feed.if_i_liked = !feed.if_i_liked;
-    fetch(`${mainAPI}/board/main?id={feed.id}&if_i_liked={feed.if_i_liked}`)
-      .then((result) => result.json())
-      .then((result) => {
-        this.setState({
-          feeds: result.board_list,
-        });
-      });
-  };
-=======
 
   changeHeart = () => {
     const { feed } = this.props;
@@ -47,7 +29,6 @@ class Feeds extends Component {
     });
   };
 
->>>>>>> master
   render() {
     const { feed } = this.props;
     const settings = {
@@ -68,11 +49,7 @@ class Feeds extends Component {
               </div>
               <div className="headerInfoText">
                 <div className="headerInfoId">{feed.uploader}</div>
-<<<<<<< HEAD
-                <div className="headerInfoTime">{feed.created_at.substring(8, 10)}시간 전</div>
-=======
                 <div className="headerInfoTime">{feed.created_at}&nbsp;전</div>
->>>>>>> master
               </div>
             </div>
           </section>
@@ -93,11 +70,7 @@ class Feeds extends Component {
               <img
                 className="likeIcon"
                 onClick={this.changeHeart}
-<<<<<<< HEAD
-                src={feed.if_i_liked ? "images/chaebinhan/Main/heart.png" : "images/chaebinhan/Main/like-black.png"}
-=======
                 src={feed.board_likes ? "images/chaebinhan/Main/heart.png" : "images/chaebinhan/Main/like-black.png"}
->>>>>>> master
                 alt="like"
                 value={feed.id}
               />
@@ -143,8 +116,5 @@ class Feeds extends Component {
     );
   }
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 export default Feeds;

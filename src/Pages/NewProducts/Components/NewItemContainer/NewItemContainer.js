@@ -9,11 +9,7 @@ class NewItemContainer extends Component {
   };
 
   componentDidMount() {
-<<<<<<< HEAD
-    fetch("http://192.168.0.27:8000/product/category/new?category=1&sort=-price")
-=======
     fetch("http://192.168.0.27:8000/product/category/new?category=7&sort=-price")
->>>>>>> master
       .then((res) => res.json())
       .then((res) => this.setState({ productsList: res.result }));
   }

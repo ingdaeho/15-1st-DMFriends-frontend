@@ -17,13 +17,6 @@
 }
 .Header {
   @extend %FlexCenter;
-<<<<<<< HEAD
-  width: 100%;
-  height: 100%;
-  align-items: center;
-
-=======
->>>>>>> master
   .overLay {
     position: fixed;
     width: 100%;
@@ -33,20 +26,12 @@
     z-index: 998;
     &.active {
       display: block;
-<<<<<<< HEAD
-      height: 10000px;
-=======
->>>>>>> master
       transition: all 0.3s;
     }
   }
   .HeaderContainer {
     @extend %FlexBetween;
-<<<<<<< HEAD
-    position: block;
-=======
     position: fixed;
->>>>>>> master
     top: 0;
     width: 640px;
     height: 47px;
