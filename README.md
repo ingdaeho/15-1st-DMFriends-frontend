@@ -1,7 +1,7 @@
 # ⛩ DM Friends ( 동묘앞 프렌즈 )
 
 - [카카오 프렌즈샵](https://store.kakaofriends.com/kr/index) 사이트
-- 소개: 카카오 프렌즈 굿즈를 판매하는 사이트인 카카오 프렌즈 샵을 참조하여 기능을 구현하였습니다. 
+- 소개: 카카오 프렌즈 굿즈를 판매하는 사이트인 카카오 프렌즈 샵을 참조하여 기능을 구현하였습니다.
 
 ## 👨‍👩‍👧‍👦 팀원
 
@@ -15,6 +15,7 @@
 - 기간: 2020.12.14 ~ 2020.12.24 (11일)
 
 ## 📌 프로젝트 목적
+
 - CRA를 이용한 SPA를 생성 및 프로젝트 세팅
 - Class Component를 기반으로 Life-cycle에 대한 이해도 향상
 
@@ -33,7 +34,7 @@
 - 제품 상세페이지
   - Slick-Carousel을 활용한 이미지 슬라이더
   - BottomBar를 통한 수량 변경 및 장바구니 POST fetch
-  - path parameter와 query string을 활용한 리뷰 댓글 Pagination 및 좋아요, 최신순 정렬 기능
+  - 리뷰 댓글 Pagination 및 좋아요, 최신순 정렬 기능
   - top버튼
   - life-cycle을 이용한 로그인 안내 모달창
   - 장바구니 추가시 setTime을 활용한 알림 애니메이션

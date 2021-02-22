@@ -79,4 +79,4 @@ export const mainAPI = "http://192.168.0.25:8080"; // 하람
 
 export const LoginAPI = "http://192.168.0.46:8000"; // 혁준
 
-export const API = "http://192.168.0.27:8000"; // 승연
+export const API = "http://localhost:3000";

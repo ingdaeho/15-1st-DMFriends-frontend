@@ -31,7 +31,7 @@
   }
   .HeaderContainer {
     @extend %FlexBetween;
-    position: fixed;
+    position: block;
     top: 0;
     width: 640px;
     height: 47px;

@@ -40,7 +40,7 @@ class Nav extends Component {
             </Link>
           </li>
           <li className={underLine4 && "active"}>
-            <Link to="/CartList" onClick={() => this.showUnderLine(4)}>
+            <Link to="/Cart" onClick={() => this.showUnderLine(4)}>
               마이
             </Link>
           </li>

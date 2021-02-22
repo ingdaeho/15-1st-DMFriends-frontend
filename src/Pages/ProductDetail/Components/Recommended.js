@@ -7,13 +7,14 @@ export default class Recommended extends Component {
     productValue: "",
   };
 
-  componentDidMount() {
-    fetch("http://192.168.0.27:8000/product/category/new?category=1&sort=-price")
-      .then((res) => res.json())
-      .then((res) => {
-        this.setState({ productsList: res.result });
-      });
-  }
+  // componentDidMount() {
+  //   fetch("http://192.168.0.27:8000/product/category/new?category=1&sort=-price")
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       this.setState({ productsList: res.result });
+  //     });
+  // }
+
   render() {
     const { productsList } = this.state;
     return (

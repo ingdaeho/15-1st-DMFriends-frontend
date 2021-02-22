@@ -4,40 +4,14 @@ import ReactStars from "react-stars";
 import * as configs from "../../../../config.js";
 
 export default class DetailPageProductImg extends Component {
-  constructor() {
-    super();
-    this.state = {
-      data: [],
-    };
-  }
-
-  // componentDidMount() {
-  //   fetch("data/ProductDetail.json")
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       this.setState({
-  //         data: res.slideImgData,
-  //       });
-  //     });
-  // }
-
-  componentDidMount() {
-    fetch(`http://192.168.0.27:8000/product/detail/1`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        this.setState({ data: res.result[0] });
-      });
-  }
-
   render() {
-    const { data } = this.state;
+    const { productData } = this.props;
     return (
       <div className="DetailPageProductImg">
         <div className="imgWrap">
           <Slider {...settings}>
-            {data.images_slider &&
-              data.images_slider.map((item, idx) => {
+            {productData.product_images &&
+              productData.product_images.map((item, idx) => {
                 return (
                   <div key={idx} id={item.id}>
                     <img className="slideImg" src={item} alt="productImg" />
@@ -47,14 +21,14 @@ export default class DetailPageProductImg extends Component {
           </Slider>
         </div>
         <div className="productNameAndPrice">
-          <div className="productName">{data.name}</div>
-          <div className="productPrice">{Number(data.price).toLocaleString()}원</div>
+          <div className="productName">{productData.name}</div>
+          <div className="productPrice">{productData.price?.toLocaleString()}원</div>
           <div className="productReviewStar">
             <div className="ReviewStarImg">
               <ReactStars
                 className="ReactStars"
                 count={5}
-                value={data.star_rating}
+                value={productData.product_rate}
                 size={24}
                 half={true}
                 edit={false}
@@ -62,7 +36,7 @@ export default class DetailPageProductImg extends Component {
                 color2={"#FF6582"}
               />
             </div>
-            <span className="totalCount">({data.star_rating})</span>
+            <span className="totalCount">({productData.product_rate})</span>
           </div>
           <ul className="shareLinks">
             <li>

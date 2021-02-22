@@ -9,23 +9,11 @@ class BottomBar extends Component {
     this.state = {
       quantityValue: 1,
       totalPrice: "",
-      product_id: 1,
     };
   }
 
-  componentDidMount() {
-    fetch("http://192.168.0.27:8000/product/detail/1")
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        this.setState({
-          productPrice: res.result[0].price,
-        });
-      });
-  }
-
   handleDecrease = () => {
-    const totalSubtraction = this.state.totalPrice - this.state.productPrice;
+    const totalSubtraction = this.state.totalPrice - this.props.productData.price;
     this.setState({
       quantityValue: this.state.quantityValue - 1,
       totalPrice: totalSubtraction,
@@ -33,15 +21,15 @@ class BottomBar extends Component {
   };
 
   handleIncrease = () => {
-    const totalAdded = +this.state.productPrice * this.state.quantityValue;
+    const totalAdded = +this.props.productData.price * this.state.quantityValue;
     this.setState({
       quantityValue: this.state.quantityValue + 1,
-      totalPrice: +this.state.productPrice + totalAdded,
+      totalPrice: +this.props.productData.price + totalAdded,
     });
   };
 
   goToCart = () => {
-    this.props.history.push("/CartList"); // 장바구니로 이동
+    this.props.history.push("/Cart");
   };
 
   addToCart = () => {
@@ -53,12 +41,13 @@ class BottomBar extends Component {
   };
 
   addProduct = () => {
-    fetch(`http://192.168.0.27:8000/order/cart`, {
-      headers: { Authorization: localStorage.getItem("Token") },
+    fetch(`http://localhost:3000/users/2/cart`, {
+      headers: { Authorization: localStorage.getItem("token"), "Content-Type": "application/json" },
       method: "post",
       body: JSON.stringify({
         quantity: this.state.quantityValue,
-        product_id: this.state.product_id,
+        product_id: this.props.productData.id,
+        price: this.props.productData.price,
       }),
     })
       .then((res) => res.json())
@@ -68,10 +57,11 @@ class BottomBar extends Component {
   };
 
   render() {
-    const { quantityValue, totalPrice, productPrice } = this.state;
+    const { quantityValue, totalPrice } = this.state;
     const { handleDecrease, handleIncrease, goToCart, addToCart } = this;
+    const { price } = this.props.productData;
     const onlyNaturalNum = quantityValue > 1;
-    let whichPrice = totalPrice === "" ? +productPrice : totalPrice;
+    let whichPrice = totalPrice ? totalPrice : price;
     return (
       <>
         <section className="BottomBar">
@@ -87,7 +77,7 @@ class BottomBar extends Component {
             </div>
             <div className="totalPrice">
               <span className="total">총 상품금액</span>
-              <span>{whichPrice.toLocaleString()}원</span>
+              <span>{whichPrice?.toLocaleString()}원</span>
             </div>
           </div>
           <div className="purchase">

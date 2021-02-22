@@ -2,20 +2,8 @@ import React, { Component } from "react";
 import ItemBox from "../../NewProducts/Components/ItemBox/ItemBox";
 
 export default class RecentlyViewed extends Component {
-  state = {
-    productsList: [],
-    productValue: "",
-  };
-
-  componentDidMount() {
-    fetch("http://192.168.0.27:8000/product/category/new?category=1&sort=-price")
-      .then((res) => res.json())
-      .then((res) => {
-        this.setState({ productsList: res.result });
-      });
-  }
   render() {
-    const { productsList } = this.state;
+    const { recentViews } = this.props;
     return (
       <section className="RecentlyViewed">
         <h3>
@@ -25,16 +13,16 @@ export default class RecentlyViewed extends Component {
         </h3>
         <div className="recentItems">
           <ul>
-            {productsList &&
-              productsList.map((productList, idx) => {
+            {recentViews &&
+              recentViews.map((item, idx) => {
                 return (
                   <li>
                     <ItemBox
                       key={idx}
-                      id={productList.id}
-                      itemName={productList.name}
-                      price={productList.price}
-                      imgUrl={productList.image_url}
+                      id={item.id}
+                      itemName={item.products.name}
+                      price={item.products.price}
+                      imgUrl={item.products.product_images.image_url}
                     />
                   </li>
                 );

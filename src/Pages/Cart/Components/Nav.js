@@ -21,6 +21,7 @@ class Nav extends Component {
       [`underLine${index}`]: !this.state[`underLine${index}`],
     });
   };
+
   render() {
     const { underLine1, underLine2, underLine3, underLine4 } = this.state;
     return (
@@ -40,7 +41,7 @@ class Nav extends Component {
             <Link onClick={() => this.showUnderLine(3)}>인기</Link>
           </li>
           <li className={underLine4 && "active"}>
-            <Link to="/CartList" onClick={() => this.showUnderLine(4)}>
+            <Link to="/Cart" onClick={() => this.showUnderLine(4)}>
               마이
             </Link>
           </li>

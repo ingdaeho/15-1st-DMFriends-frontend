@@ -17,7 +17,7 @@ export default class Shipping extends Component {
   }
 
   componentDidMount() {
-    fetch("data/Shipping.json")
+    fetch(`data/Shipping.json`)
       .then((res) => res.json())
       .then((res) => {
         this.setState({

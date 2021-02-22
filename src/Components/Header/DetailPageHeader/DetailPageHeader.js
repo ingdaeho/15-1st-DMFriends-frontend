@@ -33,7 +33,7 @@ class DetailPageHeader extends Component {
   };
 
   goToCart = () => {
-    this.props.history.push("/CartList");
+    this.props.history.push("/Cart");
   };
 
   hideSideMenu = () => {

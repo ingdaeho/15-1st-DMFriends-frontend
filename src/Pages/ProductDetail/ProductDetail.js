@@ -12,21 +12,64 @@ import BottomBar from "./Components/BottomBar";
 import ScrollToTop from "./Components/ScrollToTop";
 import Footer from "../../Components/Footer/Footer";
 import "./ProductDetail.scss";
+import { API } from "../../config";
 
 export class ProductDetail extends Component {
+  constructor() {
+    super();
+    this.state = {
+      productData: [],
+      recentViewData: [],
+    };
+  }
+
+  componentDidMount() {
+    this.getProductData();
+    this.getRecentViewData();
+  }
+
+  getProductData = () => {
+    fetch(`${API}/products/${this.props.match.params.productid}`, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+          productData: res.productDetail,
+        });
+      });
+  };
+
+  getRecentViewData = () => {
+    fetch(`${API}/products/${this.props.match.params.productid}/recentViews`, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+          recentViewData: res.recentViews,
+        });
+      });
+  };
+
   render() {
+    const { productData, recentViewData } = this.state;
     return (
       <>
         <DetailPageHeader />
-        <DetailPageProductImg />
-        <DetailPageContents />
+        <DetailPageProductImg productData={productData} />
+        <DetailPageContents productData={productData} />
         <ProductInfo />
         <Shipping />
         <Gethelp />
-        <ProductReview />
+        <ProductReview reviewData={productData.reviews} />
         <Recommended />
-        <RecentlyViewed />
-        <BottomBar />
+        <RecentlyViewed recentViews={recentViewData} />
+        <BottomBar productData={productData} />
         <ScrollToTop />
         <Footer />
       </>

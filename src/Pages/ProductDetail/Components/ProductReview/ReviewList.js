@@ -9,7 +9,7 @@ class ReviewList extends Component {
     this.state = {
       isModalOpen: false,
       page: 1,
-      perPage: 3,
+      perPage: 5,
       activePage: 1,
     };
   }
@@ -30,53 +30,47 @@ class ReviewList extends Component {
     });
   };
 
-  scrollToReview = (e) => {
-    window.scrollTo({ top: 4300, behavior: "smooth" }); // 렌더시 onclick event가 스스로 실행됨.
-  };
-
   render() {
     const { isModalOpen, page, perPage } = this.state;
     const { openModal, closeModal } = this;
     const { reviewList } = this.props;
-    let indexOflast = page * perPage;
-    let indexOffirst = indexOflast - perPage;
-    const currentPage = reviewList.slice(indexOffirst, indexOflast);
     return (
       <>
         <ul className="ReviewList">
-          {currentPage &&
-            currentPage.map((item, idx) => {
+          {reviewList &&
+            reviewList.map((el, idx) => {
               return (
                 <li key={idx}>
                   <div>
-                    <div className="userName">{item.member_id}</div>
+                    <div className="userName">{el.users.username}</div>
                     <div className="userReviewRate">
                       <ReactStars
                         className="ReactStars"
                         count={5}
-                        value={item.star_rating}
+                        value={el.review_rate}
                         size={18}
                         half={true}
                         edit={false}
                         color1={"#D5D7E0"}
                         color2={"#FF6582"}
                       />
-                      <p>{item.created_at.substring(0, 10)}</p>
+                      <p>{el.created_at.substring(0, 10)}</p>
                     </div>
-                    <p className="userReviewComment">{item.content}</p>
+                    <p className="userReviewComment">{el.contents}</p>
                   </div>
                   <div className="reviewLike">
-                    <button onClick={openModal}>좋아요</button>
+                    <button className={el.isLiked ? "liked" : "button"} onClick={openModal}>
+                      좋아요
+                    </button>
                     <LoginModal isOpen={isModalOpen} close={closeModal} />
-                    <p>{item.id}명이 좋아했어요</p>
+                    <p>{el.liked_num}명이 좋아했어요</p>
                   </div>
                 </li>
               );
             })}
         </ul>
         <Pagination
-          // onClick={this.scrollToReview()}
-          totalItemsCount={reviewList.length}
+          totalItemsCount={reviewList?.length}
           onChange={(number) => this.setPage(number)}
           itemsCountPerPage={perPage}
           activePage={page}
