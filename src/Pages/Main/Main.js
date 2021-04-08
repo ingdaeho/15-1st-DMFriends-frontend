@@ -3,7 +3,7 @@ import Feeds from "./feeds/Feeds";
 import MainReply from "./mainReply/MainReply";
 import { withRouter } from "react-router-dom";
 import "./Main.scss";
-import { mainAPI } from "../../config";
+import { awsAPI } from "../../config";
 
 class Main extends React.Component {
   state = {
@@ -14,52 +14,52 @@ class Main extends React.Component {
 
   componentDidMount() {
     this.getfeedData();
-    window.addEventListener("scroll", this.infiniteScroll);
+    // window.addEventListener("scroll", this.infiniteScroll);
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.infiniteScroll);
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener("scroll", this.infiniteScroll);
+  // }
 
   getfeedData = () => {
-    fetch(`${mainAPI}/board/main`)
-      .then((result) => result.json())
-      .then((result) => {
+    fetch(`${awsAPI}/feeds`)
+      .then((res) => res.json())
+      .then((res) => {
         this.setState({
-          feeds: result.board_list,
+          feeds: res.feeds,
         });
       });
   };
 
-  getData = () => {
-    const { startNumber, endNumber, feeds } = this.state;
-    fetch(`${mainAPI}/board/main`)
-      .then((result) => result.json())
-      .then((result) => {
-        console.log(result);
-        const writeFeeds = result.feeds.slice(startNumber, endNumber);
-        this.setState({
-          feeds: [...feeds, ...writeFeeds],
-        });
-      });
-  };
+  // getData = () => {
+  //   const { startNumber, endNumber, feeds } = this.state;
+  //   fetch(`${awsAPI}/feeds`)
+  //     .then((result) => result.json())
+  //     .then((result) => {
+  //       console.log(result);
+  //       const writeFeeds = result.feeds.slice(startNumber, endNumber);
+  //       this.setState({
+  //         feeds: [...feeds, ...writeFeeds],
+  //       });
+  //     });
+  // };
 
-  infiniteScroll = () => {
-    const { documentElement, body } = document;
-    const { endNumber } = this.state;
+  // infiniteScroll = () => {
+  //   const { documentElement, body } = document;
+  //   const { endNumber } = this.state;
 
-    const scrollHeight = Math.max(documentElement.scrollHeight, body.scrollHeight);
-    const scrollTop = Math.max(documentElement.scrollTop, body.scrollTop);
-    const clientHeight = documentElement.clientHeight;
+  //   const scrollHeight = Math.max(documentElement.scrollHeight, body.scrollHeight);
+  //   const scrollTop = Math.max(documentElement.scrollTop, body.scrollTop);
+  //   const clientHeight = documentElement.clientHeight;
 
-    if (scrollTop + clientHeight >= scrollHeight) {
-      this.setState({
-        startNumber: endNumber,
-        endNumber: endNumber + 2,
-      });
-      this.getData();
-    }
-  };
+  //   if (scrollTop + clientHeight >= scrollHeight) {
+  //     this.setState({
+  //       startNumber: endNumber,
+  //       endNumber: endNumber + 2,
+  //     });
+  //     this.getData();
+  //   }
+  // };
 
   render() {
     const { feeds } = this.state;

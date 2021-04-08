@@ -7,8 +7,6 @@ import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
 import Category from "./Pages/Category/Category";
 import NewProducts from "./Pages/NewProducts/NewProducts";
-import SideMenu from "./Components/SideMenu/SideMenu";
-import DetailPageHeader from "./Components/Header/DetailPageHeader/DetailPageHeader";
 
 class Routes extends React.Component {
   render() {
@@ -22,8 +20,6 @@ class Routes extends React.Component {
           <Route exact path="/Signup" component={Signup} />
           <Route exact path="/Category" component={Category} />
           <Route exact path="/NewProducts" component={NewProducts} />
-          <Route exact path="/SideMenu" component={SideMenu} />
-          <Route exact path="/DetailPageHeader" component={DetailPageHeader} />
         </Switch>
       </Router>
     );

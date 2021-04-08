@@ -10,7 +10,6 @@ export default class ProductReview extends Component {
     this.state = {
       isReviewModalOpen: false,
       filteringState: "likeView",
-      reviewData: [],
     };
   }
 
@@ -27,18 +26,18 @@ export default class ProductReview extends Component {
   };
 
   changeFilter = (filteringState) => {
-    if (
-      filteringState === "likeView"
-        ? this.state.reviewData.sort((a, b) => b.likedNum - a.likedNum)
-        : this.state.reviewData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-    )
-      this.setState({ filteringState });
+    this.setState({ filteringState });
   };
 
   render() {
     const { reviewData } = this.props;
     const { isReviewModalOpen, filteringState } = this.state;
     const { openReviewModal, closeReviewModal, changeFilter } = this;
+    const totalReviewRate = reviewData?.reduce((acc, cur) => acc + cur.review_rate, 0) / reviewData?.length;
+    const reviewList =
+      filteringState === "likeView"
+        ? reviewData?.sort((a, b) => b.likedNum - a.likedNum)
+        : reviewData?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     return (
       <section className="ProductReview">
         <div className="reviewHeader">
@@ -48,7 +47,7 @@ export default class ProductReview extends Component {
               <ReactStars
                 className="ReactStars"
                 count={5}
-                value={0}
+                value={totalReviewRate}
                 size={24}
                 half={true}
                 edit={false}
@@ -77,7 +76,7 @@ export default class ProductReview extends Component {
               최신순
             </button>
           </div>
-          <ReviewList reviewList={reviewData} />
+          <ReviewList reviewList={reviewList} />
         </div>
       </section>
     );

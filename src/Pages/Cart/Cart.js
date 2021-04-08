@@ -5,7 +5,7 @@ import Nav from "./Components/Nav";
 import AddedItems from "./Components/AddedItems";
 import "./Cart.scss";
 import * as configs from "../../config";
-import { API } from "../../config";
+import { awsAPI } from "../../config";
 
 class Cart extends Component {
   constructor() {
@@ -20,7 +20,7 @@ class Cart extends Component {
   };
 
   getCartData = async () => {
-    await fetch(`http://localhost:3000/users/2/cart`, {
+    await fetch(`${awsAPI}/users/2/cart`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -68,7 +68,7 @@ class Cart extends Component {
   };
 
   removeProductFetch = (id) => {
-    fetch(`${API}/users/2/cart`, {
+    fetch(`${awsAPI}/users/2/cart`, {
       headers: { Authorization: localStorage.getItem("token"), "Content-Type": "application/json" },
       method: "delete",
       body: JSON.stringify([id]),

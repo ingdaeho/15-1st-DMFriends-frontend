@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./Feeds.scss";
 import Slider from "react-slick";
 import "../Main.scss";
-import { mainAPI } from "../../../config";
 
 class Feeds extends Component {
   constructor() {
@@ -31,6 +30,7 @@ class Feeds extends Component {
 
   render() {
     const { feed } = this.props;
+    console.log(feed);
     const settings = {
       dots: true,
       arrows: true,
@@ -45,24 +45,24 @@ class Feeds extends Component {
           <section className="mainHeader">
             <div className="headerInfoBox">
               <div className="headerInfoImgBox">
-                <img className="headerInfoImg" src={feed.thumb_image} alt="profile" />
+                <img className="headerInfoImg" src={feed.feed_images} alt="profile" />
               </div>
               <div className="headerInfoText">
-                <div className="headerInfoId">{feed.uploader}</div>
+                <div className="headerInfoId">{feed.characters.name}</div>
                 <div className="headerInfoTime">{feed.created_at}&nbsp;전</div>
               </div>
             </div>
           </section>
           <section className="mainFeed">
             <div className="feedImgBox">
-              <Slider {...settings}>
-                {feed.board_images &&
-                  feed.board_images.map((img, idx) => (
+              {/* <Slider {...settings}>
+                {feed.feed_images &&
+                  feed.feed_images.map((img, idx) => (
                     <div className="feedImgMiniBox" key={idx}>
                       <img className="feedImg" src={img} alt="profile" />
                     </div>
                   ))}
-              </Slider>
+              </Slider> */}
             </div>
           </section>
           <section className="feedIconBox">
@@ -70,7 +70,7 @@ class Feeds extends Component {
               <img
                 className="likeIcon"
                 onClick={this.changeHeart}
-                src={feed.board_likes ? "images/chaebinhan/Main/heart.png" : "images/chaebinhan/Main/like-black.png"}
+                src={feed.isLiked ? "images/chaebinhan/Main/heart.png" : "images/chaebinhan/Main/like-black.png"}
                 alt="like"
                 value={feed.id}
               />
@@ -106,10 +106,10 @@ class Feeds extends Component {
           <section className="bodyContentsBox">
             <div className="goodBox">
               <div className="good">좋아요</div>
-              <div className="goodCount">{feed.board_likes}개</div>
+              <div className="goodCount">{feed.likes.length}개</div>
             </div>
             <p className="bodyTitle">{feed.title}</p>
-            <p className="bodyContents">{feed.content}</p>
+            <p className="bodyContents">{feed.contents}</p>
           </section>
         </article>
       </>

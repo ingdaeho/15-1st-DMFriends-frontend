@@ -2,13 +2,13 @@ import React from "react";
 
 class AgreementForm extends React.Component {
   render() {
-    const { policy, checked, onClick } = this.props;
+    const { id, title, checked, handleCheckedBox } = this.props;
     return (
       <li>
-        <input type="checkbox" id={policy.name} checked={checked} onClick={onClick} />
-        <label htmlFor={policy.name}>
+        <input type="checkbox" id={`checkBox${id}`} checked={checked} onClick={() => handleCheckedBox(id)} />
+        <label htmlFor={`checkBox${id}`}>
           <span></span>
-          {policy.title}
+          {title}
         </label>
       </li>
     );

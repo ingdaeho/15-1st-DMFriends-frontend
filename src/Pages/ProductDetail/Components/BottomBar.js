@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import * as configs from "../../../config.js";
-
+import { awsAPI } from "../../../config";
 class BottomBar extends Component {
   constructor() {
     super();
@@ -41,7 +41,7 @@ class BottomBar extends Component {
   };
 
   addProduct = () => {
-    fetch(`http://localhost:3000/users/2/cart`, {
+    fetch(`${awsAPI}/users/2/cart`, {
       headers: { Authorization: localStorage.getItem("token"), "Content-Type": "application/json" },
       method: "post",
       body: JSON.stringify({

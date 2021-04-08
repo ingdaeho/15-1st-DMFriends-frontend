@@ -12,7 +12,7 @@ import BottomBar from "./Components/BottomBar";
 import ScrollToTop from "./Components/ScrollToTop";
 import Footer from "../../Components/Footer/Footer";
 import "./ProductDetail.scss";
-import { API } from "../../config";
+import { awsAPI } from "../../config";
 
 export class ProductDetail extends Component {
   constructor() {
@@ -29,7 +29,7 @@ export class ProductDetail extends Component {
   }
 
   getProductData = () => {
-    fetch(`${API}/products/${this.props.match.params.productid}`, {
+    fetch(`${awsAPI}/products/${this.props.match.params.productid}`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -43,7 +43,7 @@ export class ProductDetail extends Component {
   };
 
   getRecentViewData = () => {
-    fetch(`${API}/products/${this.props.match.params.productid}/recentViews`, {
+    fetch(`${awsAPI}/products/${this.props.match.params.productid}/recentViews`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },

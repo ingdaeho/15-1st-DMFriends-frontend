@@ -1,42 +1,62 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import AgreementForm from "./components/AgreementForm";
-import { LoginAPI } from "../../config";
-import { API } from "../../config";
+import { awsAPI } from "../../config";
 import "./Signup.scss";
 
 class Signup extends React.Component {
   constructor() {
     super();
     this.state = {
-      email: "",
-      pw: "",
-      rePw: "",
-      nickName: "",
+      userInput: {
+        email: "",
+        password: "",
+        confirm_password: "",
+        username: "",
+      },
       validationCode: "",
       validCode: true,
       emailAlert: true,
       pwAlert: true,
-      pwLengthAlert: true,
-      checkAllValue: false,
-      checkAllBoxes: false,
-      check0: false,
-      check1: false,
-      check2: false,
-      check3: false,
       policies: [],
     };
   }
 
   componentDidMount() {
-    fetch("/data/Signup.json")
+    this.getPolicies();
+  }
+
+  getPolicies = () => {
+    fetch(`/data/Signup.json`)
       .then((res) => res.json())
       .then((res) => {
-        this.setState({
-          policies: res.policies,
-        });
+        this.setState({ policies: res.policies });
       });
-  }
+  };
+
+  handleAllCheckedBoxes = () => {
+    const { policies } = this.state;
+    policies.reduce((result, policy) => (result = result && policy.checked), true)
+      ? policies.map((policy) => {
+          policy.checked = false;
+          return policy;
+        })
+      : policies.map((policy) => {
+          policy.checked = true;
+          return policy;
+        });
+    this.setState({ policies });
+  };
+
+  handleCheckedBox = (index) => {
+    const { policies } = this.state;
+    for (let policy of policies) {
+      if (policy.id === index) {
+        policy.checked = !policy.checked;
+      }
+    }
+    this.setState({ policies });
+  };
 
   handleInputValue = (e) => {
     const { id, value } = e.target;
@@ -45,49 +65,24 @@ class Signup extends React.Component {
     });
   };
 
-  handleAllCheckedBoxes = () => {
-    const { checkAllBoxes } = this.state;
-    this.setState({
-      checkAllBoxes: !checkAllBoxes,
-      check0: !checkAllBoxes,
-      check1: !checkAllBoxes,
-      check2: !checkAllBoxes,
-      check3: !checkAllBoxes,
-    });
-  };
-
-  handleCheckedBox = (index) => {
-    this.setState(
-      {
-        [`check${index}`]: !this.state[`check${index}`],
-      },
-      () => {
-        const { check0, check1, check2, check3 } = this.state;
-        this.setState({
-          checkAllBoxes: check0 && check1 && check2 && check3,
-        });
-      },
-    );
-  };
-
   isValidEmail = (e) => {
     e.preventDefault();
-    const { email } = this.state;
+    const { email } = this.state.userInput;
     const checkEmail = email.includes("@") && email.includes(".");
 
     this.setState({
       emailAlert: checkEmail ? true : false,
     });
 
-    fetch(`${API}/user/email-check`, {
+    fetch(`${awsAPI}/users/sendVerifyEmail`, {
       method: "POST",
       body: JSON.stringify({
         email: this.state.email,
       }),
     })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.email === "SENT") {
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.email === "SENT") {
           alert("인증메일이 발송되었습니다. 번호를 확인해주세요.");
           this.setState({ validCode: false });
         } else {
@@ -96,23 +91,13 @@ class Signup extends React.Component {
       });
   };
 
-  isValidPw = (e) => {
-    e.preventDefault();
-    const { pw, rePw } = this.state;
-    const checkSamePw = pw === rePw;
-
-    this.setState({
-      pwAlert: checkSamePw ? true : false,
-    });
-  };
-
   isValidCode = (e) => {
     e.preventDefault();
 
-    fetch(`${API}/user/verification`, {
+    fetch(`${awsAPI}/users/verification`, {
       method: "POST",
       body: JSON.stringify({
-        email: this.state.email,
+        email: this.state.userInput,
         random_token: this.state.validationCode,
       }),
     })
@@ -123,15 +108,27 @@ class Signup extends React.Component {
       });
   };
 
+  isValidPw = (e) => {
+    e.preventDefault();
+    const { password, confirm_password } = this.state.userInput;
+    const checkSamePw = password === confirm_password;
+
+    this.setState({
+      pwAlert: checkSamePw ? true : false,
+    });
+  };
+
   isAllValid = (e) => {
+    const { email, password, confirm_password, username } = this.state.userInput;
     e.preventDefault();
 
-    fetch(`${API}/user/signup`, {
+    fetch(`${awsAPI}/users/signup`, {
       method: "POST",
       body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.pw,
-        nickname: this.state.nickName,
+        email,
+        password,
+        confirm_password,
+        username,
       }),
     })
       .then((response) => response.json())
@@ -142,10 +139,10 @@ class Signup extends React.Component {
   };
 
   render() {
-    const { emailAlert, pwAlert, nickName, policies, checkAllBoxes, validCode } = this.state;
+    const { emailAlert, pwAlert, userInput, policies, validCode } = this.state;
+    const { handleAllCheckedBoxes, isAllValid, handleCheckedBox, isValidEmail, isValidCode, handleInputValue } = this;
     const checkAllValueBtn = emailAlert && pwAlert;
-    console.log(this.state);
-
+    const checkedAll = policies.reduce((result, policy) => (result = result && policy.checked), true);
     return (
       <div className="Signup">
         <div className="title">동묘앞프렌즈</div>
@@ -153,16 +150,12 @@ class Signup extends React.Component {
           <div className="frameTitle">회원가입</div>
           <form className="formEmail">
             <span>이메일주소</span>
-            <input id="email" placeholder="이메일 주소 입력" onChange={this.handleInputValue} />
+            <input id="email" placeholder="이메일 주소 입력" onChange={handleInputValue} />
             <span className={emailAlert ? "formEmailAlert" : "activate"}>이메일 형식이 올바르지 않습니다.</span>
-            {validCode ? (
-              ""
-            ) : (
-              <input id="validationCode" placeholder="인증번호 입력" onChange={this.handleInputValue} />
-            )}
+            {validCode ? "" : <input id="validationCode" placeholder="인증번호 입력" onChange={handleInputValue} />}
             <div>
-              {validCode ? <button onClick={this.isValidEmail}> 인증메일 발송</button> : ""}
-              {validCode ? "" : <button onClick={this.isValidCode}>인증번호 확인</button>}
+              {validCode ? <button onClick={isValidEmail}> 인증메일 발송</button> : ""}
+              {validCode ? "" : <button onClick={isValidCode}>인증번호 확인</button>}
             </div>
           </form>
           <form className="formPw">
@@ -173,32 +166,32 @@ class Signup extends React.Component {
               placeholder="비밀번호(8~32자리)"
               minLength="8"
               maxLength="32"
-              onChange={this.handleInputValue}
+              onChange={handleInputValue}
             />
             <input
               id="rePw"
               type="password"
               placeholder="비밀번호 재입력"
-              onChange={this.handleInputValue}
+              onChange={handleInputValue}
               onKeyUp={this.isValidPw}
             />
             <span className={pwAlert ? "formPwAlert" : "activate"}>비밀번호가 같지 않습니다.</span>
           </form>
           <form className="formNick">
             <span>닉네임</span>
-            <span>{nickName.length}/20</span>
+            <span>{userInput.username.length}/20</span>
             <input
               id="nickName"
               type="text"
               placeholder="닉네임을 입력해주세요."
               maxLength="20"
-              onChange={this.handleInputValue}
+              onChange={handleInputValue}
             />
           </form>
           <span className="formPolicy">약관 동의</span>
           <ul>
             <li>
-              <input type="checkbox" id="checkAllBoxes" onClick={this.handleAllCheckedBoxes} checked={checkAllBoxes} />
+              <input type="checkbox" id="checkAllBoxes" checked={checkedAll} onChange={handleAllCheckedBoxes} />
               <label htmlFor="checkAllBoxes">
                 <span></span>
                 전체동의
@@ -208,15 +201,16 @@ class Signup extends React.Component {
             {policies.map((policy, index) => {
               return (
                 <AgreementForm
-                  policy={policy}
                   key={index}
-                  checked={this.state[policy.name]}
-                  onClick={() => this.handleCheckedBox(index)}
+                  id={policy.id}
+                  title={policy.title}
+                  checked={policy.checked}
+                  handleCheckedBox={handleCheckedBox}
                 />
               );
             })}
           </ul>
-          <button onClick={this.isAllValid} className={checkAllValueBtn ? "activateBtn" : ""}>
+          <button onClick={isAllValid} className={checkAllValueBtn ? "activateBtn" : ""}>
             다음
           </button>
         </div>

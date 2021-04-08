@@ -80,3 +80,5 @@ export const mainAPI = "http://192.168.0.25:8080"; // 하람
 export const LoginAPI = "http://192.168.0.46:8000"; // 혁준
 
 export const API = "http://localhost:3000";
+
+export const awsAPI = "https://msltoyu2ig.execute-api.ap-northeast-2.amazonaws.com/dev";

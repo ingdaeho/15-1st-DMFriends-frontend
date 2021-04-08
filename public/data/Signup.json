@@ -2,31 +2,23 @@
   "policies": [
     {
       "id": 0,
-      "name": "check0",
       "title": "만 14세 이상입니다.(필수)",
-      "content": "내용내용",
-      "checked": "ischecked"
+      "checked": false
     },
     {
       "id": 1,
-      "name": "check1",
       "title": "이용약관(필수)",
-      "content": "내용내용",
-      "checked": "ischecked"
+      "checked": false
     },
     {
       "id": 2,
-      "name": "check2",
       "title": "개인정보처리방침(필수)",
-      "content": "내용내용",
-      "checked": "ischecked"
+      "checked": false
     },
     {
       "id": 3,
-      "name": "check3",
       "title": "이벤트, 프로모션 알림 메일 및 SMS 수신",
-      "content": "내용내용",
-      "checked": "ischecked"
+      "checked": false
     }
   ]
 }
